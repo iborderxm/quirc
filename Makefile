@@ -15,8 +15,8 @@
 
 CC ?= gcc
 PREFIX ?= /usr/local
-SDL_CFLAGS := $(shell pkg-config --cflags sdl 2>&1)
-SDL_LIBS = $(shell pkg-config --libs sdl)
+# SDL_CFLAGS := $(shell pkg-config --cflags sdl 2>&1)
+# SDL_LIBS = $(shell pkg-config --libs sdl)
 
 LIB_VERSION = 1.2
 
@@ -74,6 +74,9 @@ quirc-demo-opencv: $(DEMO_UTIL_OBJ) demo/demo_opencv.o libquirc.a
 
 quirc-scanner: $(DEMO_OBJ) $(DEMO_UTIL_OBJ) demo/scanner.o libquirc.a
 	$(CC) -o $@ $(DEMO_OBJ) $(DEMO_UTIL_OBJ) demo/scanner.o libquirc.a $(LDFLAGS) -lm -ljpeg
+	
+quirc-scan: qr-scan/scanner.o libquirc.a
+	$(CC) -o $@ qr-scan/scanner.o libquirc.a $(LDFLAGS) -lm
 
 libquirc.a: $(LIB_OBJ)
 	rm -f $@
