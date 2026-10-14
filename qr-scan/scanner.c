@@ -57,9 +57,10 @@ int main(int argc, char *argv[])
         quirc_destroy(qr);
         stbi_image_free(img_gray);
         return -1;
-    } else {
-        printf("%d QR codes detected\n", num_codes);
     }
+    // else {
+    //     printf("%d QR codes detected\n", num_codes);
+    // }
 
     for (int i = 0; i < num_codes; i++)
     {
@@ -160,12 +161,6 @@ int main(int argc, char *argv[])
             quirc_extract(qr_cropped, 0, &code);
         }
     
-        // 保存截取的图片
-        // char output_filename[256];
-        // snprintf(output_filename, sizeof(output_filename), "qr_cropped_%d.png", i);
-        // stbi_write_png(output_filename, crop_width, crop_height, 1, cropped_img, crop_width);
-        // printf("Cropped QR code saved to %s\n", output_filename);
-    
         if (ratio < 0.5) {
             free(cropped_img); // 释放截取图片的内存
         }
@@ -178,7 +173,7 @@ int main(int argc, char *argv[])
         }
         if (err == QUIRC_SUCCESS)
         {
-            printf("QR CODE %d data:%.*s\n", i, data.payload_len, data.payload);
+            printf("%.*s\n", data.payload_len, data.payload);
         }
         else
         {
