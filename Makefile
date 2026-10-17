@@ -34,6 +34,7 @@ LIB_OBJ = \
     lib/decode.o \
     lib/identify.o \
     lib/quirc.o \
+    lib/quirc_preprocess.o \
     lib/version_db.o
 DEMO_OBJ = \
     demo/camera.o \
@@ -98,6 +99,7 @@ libquirc.$(VERSIONED_LIB_SUFFIX): $(LIB_OBJ)
 
 install: libquirc.a libquirc.$(LIB_SUFFIX) quirc-demo quirc-scanner
 	install -o root -g root -m 0644 lib/quirc.h $(DESTDIR)$(PREFIX)/include
+	install -o root -g root -m 0644 lib/quirc_preprocess.h $(DESTDIR)$(PREFIX)/include
 	install -o root -g root -m 0644 libquirc.a $(DESTDIR)$(PREFIX)/lib
 	install -o root -g root -m 0755 libquirc.$(VERSIONED_LIB_SUFFIX) \
 		$(DESTDIR)$(PREFIX)/lib
@@ -108,6 +110,7 @@ install: libquirc.a libquirc.$(LIB_SUFFIX) quirc-demo quirc-scanner
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/include/quirc.h
+	rm -f $(DESTDIR)$(PREFIX)/include/quirc_preprocess.h
 	rm -f $(DESTDIR)$(PREFIX)/lib/libquirc.$(LIB_SUFFIX) \
 		$(DESTDIR)$(PREFIX)/lib/libquirc.$(VERSIONED_LIB_SUFFIX)
 	rm -f $(DESTDIR)$(PREFIX)/lib/libquirc.a

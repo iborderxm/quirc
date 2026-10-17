@@ -28,10 +28,25 @@
 #define QUIRC_PIXEL_BLACK	1
 #define QUIRC_PIXEL_REGION	2
 
+/*
+ * 高分辨率图像会产生大量连通区域（噪声、文字、复杂背景）。
+ * 默认 254 容易在大图上耗尽，导致真正的二维码区域被丢弃。
+ * 提高到 65534（uint16 上限）以覆盖 4K 级输入；ESP32 等资源受限平台
+ * 可在编译期用 -DQUIRC_MAX_REGIONS=254 回退。
+ *
+ * 注意：QUIRC_MAX_REGIONS >= UINT16_MAX 会触发 #error。
+ */
 #ifndef QUIRC_MAX_REGIONS
-#define QUIRC_MAX_REGIONS	254
+#define QUIRC_MAX_REGIONS	65534
 #endif
-#define QUIRC_MAX_CAPSTONES	32
+
+/*
+ * 同一张大图里可能存在多个有效二维码以及干扰性的"类定位点"图案。
+ * 默认 32 在复杂场景下不够，提高到 128。
+ */
+#ifndef QUIRC_MAX_CAPSTONES
+#define QUIRC_MAX_CAPSTONES	128
+#endif
 #define QUIRC_MAX_GRIDS		(QUIRC_MAX_CAPSTONES * 2)
 
 #define QUIRC_PERSPECTIVE_PARAMS	8
