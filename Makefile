@@ -84,7 +84,7 @@ libquirc.a: $(LIB_OBJ)
 	ranlib $@
 
 libquirc.$(LIB_SUFFIX): libquirc.$(VERSIONED_LIB_SUFFIX)
-	ln -s $< $@
+	ln -sf $< $@
 
 libquirc.$(VERSIONED_LIB_SUFFIX): $(LIB_OBJ)
 	$(CC) -shared -o $@ $(LIB_OBJ) $(LDFLAGS) -lm
@@ -108,7 +108,8 @@ install: libquirc.a libquirc.$(LIB_SUFFIX) quirc-demo quirc-scanner
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/include/quirc.h
-	rm -f $(DESTDIR)$(PREFIX)/lib/libquirc.{$(LIB_SUFFIX),$(VERSIONED_LIB_SUFFIX)}
+	rm -f $(DESTDIR)$(PREFIX)/lib/libquirc.$(LIB_SUFFIX) \
+		$(DESTDIR)$(PREFIX)/lib/libquirc.$(VERSIONED_LIB_SUFFIX)
 	rm -f $(DESTDIR)$(PREFIX)/lib/libquirc.a
 	rm -f $(DESTDIR)$(PREFIX)/bin/quirc-demo
 	rm -f $(DESTDIR)$(PREFIX)/bin/quirc-demo-opencv
@@ -118,7 +119,7 @@ clean:
 	rm -f */*.o
 	rm -f */*.lo
 	rm -f libquirc.a
-	rm -f libquirc.{$(LIB_SUFFIX),$(VERSIONED_LIB_SUFFIX)}
+	rm -f libquirc.$(LIB_SUFFIX) libquirc.$(VERSIONED_LIB_SUFFIX)
 	rm -f qrtest
 	rm -f inspect
 	rm -f inspect-opencv
